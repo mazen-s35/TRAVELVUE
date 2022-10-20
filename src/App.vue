@@ -1,30 +1,57 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div class="app" :class="mode">
+    <NanBar :mode="mode" @toggle="toggle" />
+    <router-view />
+  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+  import NanBar from './components/NanBar.vue';
 
-nav {
-  padding: 30px;
+  export default {
+    name: "app",
+    components: { NanBar },
+    data () {
+    return {
+      mode: 'light'
+    }
+  },
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+    methods: {
+      toggle() {
+      if(this.mode === "dark") {
+        this.mode = "light"
+      } else {
+        this.mode = "dark"
+      }
+    }
     }
   }
+</script>
+
+<style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none !important;
+  text-transform: capitalize;
+}
+
+body {
+  font-family: "Poppins", sans-serif !important;
+  background: var(--text-light) !important;
+}
+
+:root {
+  --main-color: #5a8f7b !important;
+  --text-par: #555;
+  --text-light: #fff;
+  --border-main-color: 1px solid var(--main-color);
+}
+
+.dark {
+  --text-par: #b3aaaa;
+  background: #082032 !important;
 }
 </style>
